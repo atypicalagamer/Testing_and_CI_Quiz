@@ -1,10 +1,10 @@
 class EngagementEngine:
-    def __init__(self, user_handle, verified=False):
+    def __init__(self, user_handle, verified = False):
         self.user_handle = user_handle
         self.score = 0.0
         self.verified = verified
 
-    def process_interaction(self, itype, count=1):
+    def process_interaction(self, itype, count = 1):
         if count < 0: raise ValueError("Negative count")
         weights = {"like": 1, "comment": 5, "share": 10}
         if itype not in weights: return False
