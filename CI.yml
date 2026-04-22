@@ -5,19 +5,17 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    # This tells the 'test' job to run INSIDE your custom image
+    container:
+      image: mtomlinsiue/testing_and_ci:v1.2
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      # NOTE: Since your Dockerfile already installs requirements,
+      # you technically don't need 'Set up Python' or 'Install dependencies' here.
+      # Running them again won't hurt, but it's redundant.
 
       - name: Run tests with coverage
         run: |
